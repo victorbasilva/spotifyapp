@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Artists List</title>
+</head>
+<body>
+<h1>Artists</h1>
+<table>
+    <thead>
+    <tr>
+        <th>Artist</th>
+        <th>Year</th>
+        <th>Region</th>
+        <th>Total Streams</th>
+        <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="artist : ${artists}">
+        <td th:text="${artist.artist}"></td>
+        <td th:text="${artist.year}"></td>
+        <td th:text="${artist.region}"></td>
+        <td th:text="${artist.totalStreams}"></td>
+        <td>
+            <a th:href="@{/artists/{id}(id=${artist.id})}">View</a>
+            <a th:href="@{/artists/edit/{id}(id=${artist.id})}">Edit</a>
+            <a th:href="@{/artists/delete/{id}(id=${artist.id})}">Delete</a>
+        </td>
+    </tr>
+    </tbody>
+</table>
+<a href="/artists/add">Add Artist</a>
+</body>
+</html>

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>View Artist</title>
+</head>
+<body>
+<h1>Artist Details</h1>
+<table>
+    <tr>
+        <td>Artist:</td>
+        <td th:text="${artist.artist}"></td>
+    </tr>
+    <tr>
+        <td>Year:</td>
+        <td th:text="${artist.year}"></td>
+    </tr>
+    <tr>
+        <td>Region:</td>
+        <td th:text="${artist.region}"></td>
+    </tr>
+    <tr>
+        <td>Total Streams:</td>
+        <td th:text="${artist.totalStreams}"></td>
+    </tr>
+</table>
+<a href="/artists">Back to List</a>
+</body>
+</html>
