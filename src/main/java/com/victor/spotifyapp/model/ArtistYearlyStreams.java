@@ -7,6 +7,7 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 import jakarta.validation.constraints.Size;
+import org.springframework.data.mongodb.core.mapping.Field;
 
 @Document(collection = "artist_yearly_streams")
 public class ArtistYearlyStreams {
@@ -25,8 +26,8 @@ public class ArtistYearlyStreams {
     @Size(max = 255)
     private String region;
 
-    @NotNull
-    @Positive
+    @Field("total_streams")
+    @NotNull(message = "Total streams is required")
     private Integer totalStreams;
 
     // Getters and Setters

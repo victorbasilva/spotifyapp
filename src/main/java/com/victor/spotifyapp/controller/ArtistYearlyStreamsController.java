@@ -4,6 +4,9 @@ import com.victor.spotifyapp.model.ArtistYearlyStreams;
 import com.victor.spotifyapp.service.ArtistYearlyStreamsService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -20,10 +23,13 @@ public class ArtistYearlyStreamsController {
     private ArtistYearlyStreamsService service;
 
     @GetMapping
-    public String getAllArtists(Model model) {
-        model.addAttribute("artists", service.findAll());
+    public String getAllArtists(@PageableDefault(size = 10) Pageable pageable, Model model) {
+        Page<ArtistYearlyStreams> page = service.findAll(pageable);
+        model.addAttribute("artists", page.getContent());
+        model.addAttribute("page", page);
         return "artists/list";
     }
+
 
     @GetMapping("/{id}")
     public String getArtistById(@PathVariable String id, Model model) {

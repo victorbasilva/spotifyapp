@@ -1,11 +1,101 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
     <title>Artists List</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f4f4f4;
+        }
+
+        h1 {
+            color: rebeccapurple;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: left;
+        }
+
+        th {
+            background-color: rebeccapurple;
+            color: white;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        tr:nth-child(odd) {
+            background-color: white;
+        }
+
+        form {
+            margin-bottom: 20px;
+        }
+
+        input[type="text"], input[type="number"] {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        a {
+            text-decoration: none;
+            color: #007bff;
+            margin-right: 10px;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        .pagination {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .pagination li {
+            display: inline;
+            margin-right: 5px;
+        }
+
+        .disabled {
+            color: #ccc;
+            pointer-events: none;
+            cursor: default;
+        }
+    </style>
 </head>
 <body>
 <h1>Artists</h1>
 <table>
+    <!-- Cabeçalho da tabela -->
     <thead>
     <tr>
         <th>Artist</th>
@@ -15,8 +105,10 @@
         <th>Actions</th>
     </tr>
     </thead>
+    <!-- Corpo da tabela -->
     <tbody>
     <tr th:each="artist : ${artists}">
+        <!-- Colunas com dados -->
         <td th:text="${artist.artist}"></td>
         <td th:text="${artist.year}"></td>
         <td th:text="${artist.region}"></td>
@@ -29,6 +121,26 @@
     </tr>
     </tbody>
 </table>
+<!-- Controles de paginação -->
+<div th:if="${page.totalPages > 1}">
+    <ul class="pagination">
+        <li th:class="${page.first ? 'disabled' : ''}">
+            <a th:href="@{/artists?page=0}">First</a>
+        </li>
+        <li th:class="${page.hasPrevious ? '' : 'disabled'}">
+            <a th:href="@{/artists?page=${page.number - 1}}">Previous</a>
+        </li>
+        <li th:class="${page.hasNext ? '' : 'disabled'}">
+            <a th:href="@{/artists?page=${page.number + 1}}">Next</a>
+        </li>
+        <li th:class="${page.last ? 'disabled' : ''}">
+            <a th:href="@{/artists?page=${page.totalPages - 1}}">Last</a>
+        </li>
+    </ul>
+</div>
 <a href="/artists/add">Add Artist</a>
 </body>
 </html>
+
+
+

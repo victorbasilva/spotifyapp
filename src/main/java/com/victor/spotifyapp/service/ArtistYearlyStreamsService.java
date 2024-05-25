@@ -2,6 +2,8 @@ package com.victor.spotifyapp.service;
 
 import com.victor.spotifyapp.model.ArtistYearlyStreams;
 import com.victor.spotifyapp.repository.ArtistYearlyStreamsRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -16,8 +18,8 @@ public class ArtistYearlyStreamsService {
         this.repository = repository;
     }
 
-    public List<ArtistYearlyStreams> findAll() {
-        return repository.findAll();
+    public Page<ArtistYearlyStreams> findAll(Pageable pageable) {
+        return repository.findAll(pageable);
     }
 
     public Optional<ArtistYearlyStreams> findById(String id) {
